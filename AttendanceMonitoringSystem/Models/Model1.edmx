@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AMSDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'AMSDB.dbo.CHECKINOUT' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CHECKINOUT">
+          <Key>
+            <PropertyRef Name="USERID" />
+            <PropertyRef Name="CHECKTIME" />
+          </Key>
+          <Property Name="USERID" Type="int" Nullable="false" />
+          <Property Name="CHECKTIME" Type="datetime" Nullable="false" />
+          <Property Name="CHECKTYPE" Type="nvarchar" MaxLength="1" />
+          <Property Name="VERIFYCODE" Type="int" />
+          <Property Name="SENSORID" Type="nvarchar" MaxLength="5" />
+          <Property Name="Memoinfo" Type="nvarchar" MaxLength="30" />
+          <Property Name="WorkCode" Type="nvarchar" MaxLength="24" />
+          <Property Name="sn" Type="nvarchar" MaxLength="20" />
+          <Property Name="UserExtFmt" Type="smallint" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Tbl_LogIn">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'AMSDB.dbo.Tbl_Position' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Tbl_Position">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Position" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Tbl_RegsForm">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Program" Type="nvarchar" MaxLength="20" />
+          <Property Name="SchoolYear" Type="int" />
+          <Property Name="Position" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityContainer Name="AMSDBModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_LogIn" EntityType="Self.Tbl_LogIn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_RegsForm" EntityType="Self.Tbl_RegsForm" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CHECKINOUT" EntityType="Self.CHECKINOUT" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CHECKINOUT].[USERID] AS [USERID], 
+    [CHECKINOUT].[CHECKTIME] AS [CHECKTIME], 
+    [CHECKINOUT].[CHECKTYPE] AS [CHECKTYPE], 
+    [CHECKINOUT].[VERIFYCODE] AS [VERIFYCODE], 
+    [CHECKINOUT].[SENSORID] AS [SENSORID], 
+    [CHECKINOUT].[Memoinfo] AS [Memoinfo], 
+    [CHECKINOUT].[WorkCode] AS [WorkCode], 
+    [CHECKINOUT].[sn] AS [sn], 
+    [CHECKINOUT].[UserExtFmt] AS [UserExtFmt]
+    FROM [dbo].[CHECKINOUT] AS [CHECKINOUT]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Tbl_Position" EntityType="Self.Tbl_Position" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tbl_Position].[ID] AS [ID], 
+    [Tbl_Position].[Position] AS [Position]
+    FROM [dbo].[Tbl_Position] AS [Tbl_Position]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AMSDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tbl_LogIn">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_RegsForm">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Program" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="SchoolYear" Type="Int32" />
+          <Property Name="Position" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CHECKINOUT">
+          <Key>
+            <PropertyRef Name="USERID" />
+            <PropertyRef Name="CHECKTIME" />
+          </Key>
+          <Property Name="USERID" Type="Int32" Nullable="false" />
+          <Property Name="CHECKTIME" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CHECKTYPE" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="VERIFYCODE" Type="Int32" />
+          <Property Name="SENSORID" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+          <Property Name="Memoinfo" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="WorkCode" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
+          <Property Name="sn" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UserExtFmt" Type="Int16" />
+        </EntityType>
+        <EntityType Name="Tbl_Position">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Position" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="AMSDBEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="Tbl_LogIn" EntityType="Self.Tbl_LogIn" />
+          <EntitySet Name="Tbl_RegsForm" EntityType="Self.Tbl_RegsForm" />
+          <EntitySet Name="CHECKINOUTs" EntityType="Self.CHECKINOUT" />
+          <EntitySet Name="Tbl_Position" EntityType="Self.Tbl_Position" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AMSDBModelStoreContainer" CdmEntityContainer="AMSDBEntities1">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="AMSDBModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_LogIn">
+            <EntityTypeMapping TypeName="AMSDBModel.Tbl_LogIn">
+              <MappingFragment StoreEntitySet="Tbl_LogIn">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_RegsForm">
+            <EntityTypeMapping TypeName="AMSDBModel.Tbl_RegsForm">
+              <MappingFragment StoreEntitySet="Tbl_RegsForm">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Program" ColumnName="Program" />
+                <ScalarProperty Name="SchoolYear" ColumnName="SchoolYear" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CHECKINOUTs">
+            <EntityTypeMapping TypeName="AMSDBModel.CHECKINOUT">
+              <MappingFragment StoreEntitySet="CHECKINOUT">
+                <ScalarProperty Name="USERID" ColumnName="USERID" />
+                <ScalarProperty Name="CHECKTIME" ColumnName="CHECKTIME" />
+                <ScalarProperty Name="CHECKTYPE" ColumnName="CHECKTYPE" />
+                <ScalarProperty Name="VERIFYCODE" ColumnName="VERIFYCODE" />
+                <ScalarProperty Name="SENSORID" ColumnName="SENSORID" />
+                <ScalarProperty Name="Memoinfo" ColumnName="Memoinfo" />
+                <ScalarProperty Name="WorkCode" ColumnName="WorkCode" />
+                <ScalarProperty Name="sn" ColumnName="sn" />
+                <ScalarProperty Name="UserExtFmt" ColumnName="UserExtFmt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Position">
+            <EntityTypeMapping TypeName="AMSDBModel.Tbl_Position">
+              <MappingFragment StoreEntitySet="Tbl_Position">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Position" ColumnName="Position" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
